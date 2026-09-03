@@ -1,0 +1,318 @@
+/* 
+ * SafeGuard Web Dashboard – Design System
+ * ═══════════════════════════════════════════
+ * Premium dark-mode glassmorphic design with
+ * vibrant accent colors and micro-animations.
+ */
+
+/* ── Google Fonts ──────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ── CSS Custom Properties (Design Tokens) ── */
+:root {
+  /* Background palette */
+  --bg-primary:     #06080f;
+  --bg-secondary:   #0d1117;
+  --bg-tertiary:    #161b22;
+  --bg-card:        rgba(13, 17, 23, 0.7);
+  --bg-card-hover:  rgba(22, 27, 34, 0.9);
+  --bg-glass:       rgba(255, 255, 255, 0.03);
+  --bg-glass-hover: rgba(255, 255, 255, 0.06);
+  --bg-elevated:    rgba(255, 255, 255, 0.02);
+
+  /* Text palette */
+  --text-primary:   #e6edf3;
+  --text-secondary: #8b949e;
+  --text-muted:     #484f58;
+  --text-accent:    #58a6ff;
+
+  /* Status colors */
+  --safe:           #3fb950;
+  --safe-glow:      rgba(63, 185, 80, 0.25);
+  --safe-bg:        rgba(63, 185, 80, 0.08);
+  --safe-subtle:    rgba(63, 185, 80, 0.15);
+  
+  --warning:        #d29922;
+  --warning-glow:   rgba(210, 153, 34, 0.25);
+  --warning-bg:     rgba(210, 153, 34, 0.08);
+  --warning-subtle: rgba(210, 153, 34, 0.15);
+  
+  --danger:         #f85149;
+  --danger-glow:    rgba(248, 81, 73, 0.3);
+  --danger-bg:      rgba(248, 81, 73, 0.08);
+  --danger-subtle:  rgba(248, 81, 73, 0.15);
+  
+  --critical:       #da3633;
+  --critical-glow:  rgba(218, 54, 51, 0.5);
+
+  /* Accent colors */
+  --blue:           #58a6ff;
+  --blue-glow:      rgba(88, 166, 255, 0.2);
+  --blue-bg:        rgba(88, 166, 255, 0.08);
+  --purple:         #bc8cff;
+  --purple-glow:    rgba(188, 140, 255, 0.2);
+  --purple-bg:      rgba(188, 140, 255, 0.08);
+  --cyan:           #39d2c0;
+  --cyan-glow:      rgba(57, 210, 192, 0.2);
+
+  /* Accent gradients */
+  --gradient-brand:   linear-gradient(135deg, #58a6ff 0%, #bc8cff 50%, #f778ba 100%);
+  --gradient-safe:    linear-gradient(135deg, #3fb950 0%, #2ea043 100%);
+  --gradient-danger:  linear-gradient(135deg, #f85149 0%, #da3633 100%);
+  --gradient-warning: linear-gradient(135deg, #d29922 0%, #bb8009 100%);
+  --gradient-info:    linear-gradient(135deg, #58a6ff 0%, #388bfd 100%);
+  --gradient-purple:  linear-gradient(135deg, #bc8cff 0%, #8957e5 100%);
+  --gradient-glass:   linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+  --gradient-topbar:  linear-gradient(90deg, #58a6ff 0%, #bc8cff 40%, #f778ba 70%, #ff7b72 100%);
+
+  /* Glass effects */
+  --glass-border:   1px solid rgba(255, 255, 255, 0.06);
+  --glass-border-hover: 1px solid rgba(255, 255, 255, 0.1);
+  --glass-shadow:   0 4px 24px rgba(0, 0, 0, 0.4);
+  --glass-blur:     blur(20px);
+
+  /* Elevation shadows */
+  --shadow-sm:  0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md:  0 3px 8px rgba(0, 0, 0, 0.4);
+  --shadow-lg:  0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-xl:  0 12px 40px rgba(0, 0, 0, 0.6);
+
+  /* Spacing */
+  --space-2xs:  2px;
+  --space-xs:   4px;
+  --space-sm:   8px;
+  --space-md:   16px;
+  --space-lg:   24px;
+  --space-xl:   32px;
+  --space-2xl:  48px;
+
+  /* Border radius */
+  --radius-xs:  6px;
+  --radius-sm:  8px;
+  --radius-md:  12px;
+  --radius-lg:  16px;
+  --radius-xl:  20px;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-sans:  'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono:  'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Transitions */
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+}
+
+/* ── Reset & Base ──────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Animated background mesh gradient */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(ellipse 80% 50% at 15% 15%, rgba(88, 166, 255, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 85% 80%, rgba(188, 140, 255, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 60% at 50% 50%, rgba(247, 120, 186, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+  animation: meshShift 25s ease-in-out infinite alternate;
+}
+
+@keyframes meshShift {
+  0% { transform: scale(1) translate(0, 0); }
+  50% { transform: scale(1.03) translate(-1%, 0.5%); }
+  100% { transform: scale(1) translate(0.5%, -0.5%); }
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+/* ── Scrollbar ─────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ── Utility animations ────────────────────── */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 16px var(--danger-glow); }
+  50% { box-shadow: 0 0 32px var(--critical-glow), 0 0 48px var(--danger-glow); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.12); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.08); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+
+@keyframes emergencyFlash {
+  0%, 100% { 
+    background: var(--danger-bg);
+    border-color: var(--danger);
+  }
+  50% { 
+    background: rgba(248, 81, 73, 0.15);
+    border-color: var(--critical);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes borderShine {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ── Glass Card Base ───────────────────────── */
+
+.glass-card {
+  background: var(--bg-glass);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-shadow);
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.09);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── Badge / Chip ──────────────────────────── */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.badge--safe {
+  background: var(--safe-bg);
+  color: var(--safe);
+  border: 1px solid var(--safe-subtle);
+}
+
+.badge--warning {
+  background: var(--warning-bg);
+  color: var(--warning);
+  border: 1px solid var(--warning-subtle);
+}
+
+.badge--danger {
+  background: var(--danger-bg);
+  color: var(--danger);
+  border: 1px solid var(--danger-subtle);
+  animation: breathe 2s ease-in-out infinite;
+}
+
+/* ── Loading skeleton ──────────────────────── */
+
+.skeleton {
+  background: linear-gradient(90deg, 
+    rgba(255,255,255,0.03) 25%, 
+    rgba(255,255,255,0.06) 50%, 
+    rgba(255,255,255,0.03) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}

@@ -1,0 +1,30 @@
+/*https://safeguardenvpro-default-rtdb.asia-southeast1.firebasedatabase.app/
+3SX1ktJEqULNCYAiATeiV4JhHFuW2lZ8NXK8W2ko
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+    apiKey: "AIzaSyDpLaGGN_qLVXles9Om_qYe-0Xwv_Fm5-w",
+    authDomain: "safeguardenvpro.firebaseapp.com",
+    databaseURL: "https://safeguardenvpro-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "safeguardenvpro",
+    storageBucket: "safeguardenvpro.firebasestorage.app",
+    messagingSenderId: "16025626179",
+    appId: "1:16025626179:web:fc473195c587ae139f96f6",
+    measurementId: "G-DLMZSBB11W"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+
+Project name: SafeGuardEnvPro
+Project ID: safeguardenvpro
+Project number: 16025626179
+Realtime Database: https://safeguardenvpro-default-rtdb.asia-southeast1.firebasedatabase.app/ */  

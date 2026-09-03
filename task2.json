@@ -1,0 +1,187 @@
+[
+    {
+        "id": "2c83cf574d285887",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "09d1da7000401e8c",
+        "type": "inject",
+        "z": "2c83cf574d285887",
+        "name": "Trigger Motion Sensor",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 100,
+        "wires": [
+            [
+                "bdd11e6ee6f15ed6"
+            ]
+        ]
+    },
+    {
+        "id": "bdd11e6ee6f15ed6",
+        "type": "function",
+        "z": "2c83cf574d285887",
+        "name": "Simulate Motion",
+        "func": "const motionDetected = Math.random() > 0.5;\nmsg.motion = motionDetected;\nif (motionDetected) {\n    msg.motionStatus = \"Motion Detected\";\n} else {\n    msg.motionStatus = \"No Motion\";\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 180,
+        "wires": [
+            [
+                "df16679fc164b448"
+            ]
+        ]
+    },
+    {
+        "id": "df16679fc164b448",
+        "type": "function",
+        "z": "2c83cf574d285887",
+        "name": "Check Day or Night",
+        "func": "const currentHour = new Date().getHours();\nmsg.currentHour = currentHour;\nif (currentHour >= 18 || currentHour < 6) {\n    msg.isNight = true;\n    msg.timeStatus = \"Night Time\";\n} else {\n    msg.isNight = false;\n    msg.timeStatus = \"Day Time\";\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 300,
+        "wires": [
+            [
+                "171ff9e99f2b7389",
+                "dba168891b1c2579",
+                "e6a82cecc11639dd"
+            ]
+        ]
+    },
+    {
+        "id": "171ff9e99f2b7389",
+        "type": "function",
+        "z": "2c83cf574d285887",
+        "name": "Light Controller",
+        "func": "if (msg.motion === true && msg.isNight === true) {\n    msg.payload = \"LIGHT ON\";\n} else {\n    msg.payload = \"LIGHT OFF\";\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 420,
+        "wires": [
+            [
+                "2fdaf0e008400c62"
+            ]
+        ]
+    },
+    {
+        "id": "dba168891b1c2579",
+        "type": "ui_text",
+        "z": "2c83cf574d285887",
+        "group": "19dccb43c8150cfc",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "Motion Status",
+        "label": "Motion Status",
+        "format": "{{msg.motionStatus}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 660,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "e6a82cecc11639dd",
+        "type": "ui_text",
+        "z": "2c83cf574d285887",
+        "group": "19dccb43c8150cfc",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Time Status",
+        "label": "Time Status",
+        "format": "{{msg.timeStatus}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 690,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "2fdaf0e008400c62",
+        "type": "ui_text",
+        "z": "2c83cf574d285887",
+        "group": "19dccb43c8150cfc",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "Light Status",
+        "label": "Light Status",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 610,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "19dccb43c8150cfc",
+        "type": "ui_group",
+        "name": "Smart Lighting",
+        "tab": "d9c6d6d573081a6e",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "d9c6d6d573081a6e",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "fdd3246b77cdcafc",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]
